@@ -1,7 +1,9 @@
 {
-  "officeHours": {
+  "config": {
     "start": 8,
-    "end": 20
+    "end": 20,
+    "increment": 15,
+    "defaultMeetingLength": 60
   },
   "roomTypes": [
     {
@@ -40,55 +42,55 @@
   "rooms": [
     {
       "id": 0,
-      "name": "Sprite",
+      "name": "Sprite Room",
       "roomTypeID": 0,
       "capacityID": 0
     },
     {
       "id": 1,
-      "name": "Unicorn",
+      "name": "Unicorn Room",
       "roomTypeID": 0,
       "capacityID": 1
     },
     {
       "id": 2,
-      "name": "Mermaid",
+      "name": "Mermaid Room",
       "roomTypeID": 0,
       "capacityID": 2
     },
     {
       "id": 3,
-      "name": "Satyr",
+      "name": "Satyr Room",
       "roomTypeID": 1,
       "capacityID": 0
     },
     {
       "id": 4,
-      "name": "Pegasus",
+      "name": "Pegasus Room",
       "roomTypeID": 1,
       "capacityID": 1
     },
     {
       "id": 5,
-      "name": "Basalisk",
+      "name": "Basalisk Room",
       "roomTypeID": 1,
       "capacityID": 2
     },
     {
       "id": 6,
-      "name": "Pixie",
+      "name": "Pixie Room",
       "roomTypeID": 2,
       "capacityID": 0
     },
     {
       "id": 7,
-      "name": "Centaur",
+      "name": "Centaur Room",
       "roomTypeID": 2,
       "capacityID": 1
     },
     {
       "id": 8,
-      "name": "Dragon",
+      "name": "Dragon Room",
       "roomTypeID": 2,
       "capacityID": 2
     }
