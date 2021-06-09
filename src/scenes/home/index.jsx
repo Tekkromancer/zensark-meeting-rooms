@@ -1,5 +1,6 @@
 import { Box, Container, Grid, Paper, Typography } from '@material-ui/core';
 import React, { useCallback, useEffect, useState } from 'react';
+import RoomRow from '../../components/roomRow';
 
 import { loadData } from './dataLoader';
 
@@ -33,6 +34,9 @@ const HomeScene = () => {
             </Grid>
           </Grid>
         </Paper>
+        {roomData.length > 0 && roomData.map((data) => (
+          <RoomRow key={`room${data.id}`} data={data} />
+        ))}
       </Container>
     </Box>
   )

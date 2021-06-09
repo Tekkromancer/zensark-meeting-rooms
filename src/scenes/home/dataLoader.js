@@ -22,6 +22,7 @@ const getReturnResult = () => {
 
   data.displayData = data.rooms.map(roomData => {
     return {
+      id: roomData.id,
       name: roomData.name,
       roomType: getForeignKeyData(roomData.roomTypeID, data.roomTypes),
       capacity: getForeignKeyData(roomData.capacityID, data.roomCapacities),
