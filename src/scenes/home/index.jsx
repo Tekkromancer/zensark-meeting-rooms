@@ -1,6 +1,7 @@
 import { Box, Container, Grid, Paper, Typography } from '@material-ui/core';
 import React, { useCallback, useEffect, useState } from 'react';
 import RoomRow from '../../components/roomRow';
+import TimeSlider from '../../components/timeSlider';
 
 import { loadData } from './dataLoader';
 
@@ -10,10 +11,11 @@ const HomeScene = () => {
   const classes = useStyles();
 
   const [roomData, setRoomData] = useState([]);
+  const [configData, setConfigData] = useState();
 
   const onComplete = useCallback(data => {
-    console.log('data', data);
     setRoomData(data.displayData);
+    setConfigData(data.config);
   }, []);
 
   useEffect(() => {
@@ -34,6 +36,7 @@ const HomeScene = () => {
             </Grid>
           </Grid>
         </Paper>
+        {configData && <TimeSlider config={configData} />}
         {roomData.length > 0 && roomData.map((data) => (
           <RoomRow key={`room${data.id}`} data={data} />
         ))}

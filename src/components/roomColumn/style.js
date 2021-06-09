@@ -1,8 +1,10 @@
 import { makeStyles } from "@material-ui/core";
 
+import { roomColumnWidth } from '../../scenes/home/style';
+
 export default makeStyles({
   root: {
-    width: 100,
+    width: roomColumnWidth,
   },
   nameSection: {
     fontWeight: 'bold',

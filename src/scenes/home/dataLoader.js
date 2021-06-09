@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseURL = ' http://localhost:3002';
 
 const queue = [
-  { endpoint: 'officeHours', loaded: false, result: null },
+  { endpoint: 'config', loaded: false, result: null },
   { endpoint: 'roomCapacities', loaded: false, result: null },
   { endpoint: 'roomTypes', loaded: false, result: null },
   { endpoint: 'rooms', loaded: false, result: null },
