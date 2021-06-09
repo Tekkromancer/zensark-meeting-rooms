@@ -10,7 +10,6 @@ export default makeStyles({
   },
   masthead: {
     padding: 20,
-    marginTop: 100
-  }
-
+    marginTop: 20
+  },
 });
