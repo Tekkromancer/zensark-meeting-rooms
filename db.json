@@ -2,7 +2,7 @@
   "config": {
     "start": 8,
     "end": 20,
-    "increment": 15,
+    "increment": 30,
     "defaultMeetingLength": 60
   },
   "roomTypes": [
@@ -103,14 +103,6 @@
       "start": "11:30 AM",
       "end": "1:30 PM",
       "id": 3
-    },
-    {
-      "roomID": 1,
-      "name": "Meeting",
-      "date": "2021/06/10",
-      "start": "1:00 PM",
-      "end": "2:00 PM",
-      "id": 4
     }
   ]
 }
