@@ -51,7 +51,7 @@ const TimeSlider = ({ config, onChange }) => {
 
   useEffect(() => {
     onChange(value);
-  }, []);
+  }, [onChange, value]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
