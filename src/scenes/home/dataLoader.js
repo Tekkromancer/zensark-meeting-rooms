@@ -71,12 +71,14 @@ export const loadData = callback => {
   });
 }
 
-export const addBooking = (bookingData, date, timeslot, callback) => {
+export const addBooking = ({ data: bookingData, date, timeRange, bookingName = 'Meeting' }, callback) => {
+  console.log('bookingName', bookingName);
   const payload = {
     roomID: bookingData.id,
+    name: bookingName,
     date,
-    start: getTimeText(timeslot[0]),
-    end: getTimeText(timeslot[1]),
+    start: getTimeText(timeRange[0]),
+    end: getTimeText(timeRange[1]),
   };
 
   axios.post(`${baseURL}/bookings`, payload)
@@ -87,7 +89,6 @@ export const addBooking = (bookingData, date, timeslot, callback) => {
 };
 
 export const deleteBooking = (id, callback) => {
-  console.log('deleteBooking', id);
   axios.delete(`${baseURL}/bookings/${id}`)
     .then((response) => {
       bookingsData.result = bookingsData.result.filter(item => item.id !== id);

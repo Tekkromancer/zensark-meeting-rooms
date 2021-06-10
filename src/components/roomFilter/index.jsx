@@ -1,5 +1,5 @@
 import { Grid, InputLabel, MenuItem, Paper, Select, TextField } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import useStyles from './style';
 

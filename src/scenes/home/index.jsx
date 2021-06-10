@@ -13,17 +13,16 @@ const HomeScene = () => {
   const classes = useStyles();
 
   const [loaded, setLoaded] = useState(false);
-  const [bookingName, setBookingName] = useState(false);
+  const [bookingName, setBookingName] = useState('Meeting');
   const [allData, setAllData] = useState({});
   const [rooms, setRooms] = useState([]);
   const [timeRange, setTimeRange] = useState([]);
-  const [date, setDate] = useState(() => {
+  const [date] = useState(() => {
     return moment(new Date()).format('YYYY/MM/DD');
   });
 
   const onComplete = useCallback(data => {
-    console.log('onComplete', data);
-
+    // console.log('onComplete', data);
     setAllData(data);
     setRooms(data.displayData);
     setLoaded(true);
@@ -33,7 +32,7 @@ const HomeScene = () => {
     if (rooms.length > 1) return;
     if (loaded) return;
     loadData(onComplete);
-  }, [onComplete, rooms])
+  }, [onComplete, rooms, loaded])
 
   const onTimeChange = range => {
     setTimeRange(range);
@@ -68,7 +67,7 @@ const HomeScene = () => {
   }
 
   const onCreateBooking = (data) => {
-    addBooking(data, date, timeRange, onComplete);
+    addBooking({ data, date, timeRange, bookingName }, onComplete);
   }
 
   const onDeleteBooking = id => {

@@ -8,7 +8,6 @@ import useStyles from './style';
 import { getTimeText } from '../../utils/textUtils';
 import { canBook } from '../../scenes/home/dataLoader';
 
-import DeleteIcon from '@material-ui/icons/Delete';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const getBlocks = ({ config, data: { bookings } }) => {
@@ -33,6 +32,7 @@ const getBlocks = ({ config, data: { bookings } }) => {
     // current block
     blocks.push({
       id: booking.id,
+      name: booking.name,
       duration: booking.end - booking.start,
       startText: getTimeText(booking.start),
       endText: getTimeText(booking.end),
@@ -102,23 +102,26 @@ const RoomRow = ({
           {blocks.map((block, i) => (
             <div
               key={`${data.id}_b_${i}`}
-              className={classes.block}
+              className={`${classes.block} ${block.available ? classes.available : classes.booked}`}
               style={{
-                backgroundColor: block.available ? 'green' : 'red',
                 width: getWidthPercent(block.duration),
               }}
             >
-              <div className={classes.blockLeft}>
-                <div>{block.startText}</div>
-              </div>
-              <div className={classes.blockRight}>
+              <div className={`${classes.blockRow} ${classes.blockName}`}>
+                <div>{block.name}</div>
                 {!block.available ? (
                   <HighlightOffIcon
                     className={classes.deleteIcon}
                     onClick={onDelete(block.id)}
                   />
                 ) : <div />}
-                <div style={{ justifyContent: 'flex-end', alignItems: 'flex-end', textAlign: 'right' }}>{block.endText}</div>
+
+              </div>
+              <div className={classes.blockRow}>
+                <div>{block.startText}</div>
+              </div>
+              <div className={classes.blockRow} style={{ justifyContent: 'flex-end', textAlign: 'right' }}>
+                {block.endText}
               </div>
             </div>
           ))}

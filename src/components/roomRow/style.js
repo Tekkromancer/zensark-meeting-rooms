@@ -19,6 +19,7 @@ export default makeStyles({
   },
   block: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     // alignItems: 'center',
     padding: 5,
@@ -27,10 +28,22 @@ export default makeStyles({
     // borderRight: blockBorder,
     '& > div': {
       fontSize: 10,
-      fontWeight: 'bold',
+      // fontWeight: 'bold',
       display: 'flex',
-      flexDirection: 'column',
     }
+  },
+  available: {
+    backgroundColor: 'hsl(120deg 53% 81%)',
+  },
+  booked: {
+    backgroundColor: 'hsl(0deg 64% 74%)',
+  },
+  blockRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  blockName: {
+    fontWeight: 'bold',
   },
   blockRight: {
     display: 'flex',
