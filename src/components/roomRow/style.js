@@ -32,6 +32,15 @@ export default makeStyles({
       flexDirection: 'column',
     }
   },
-
+  blockRight: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+  deleteIcon: {
+    fontSize: 14,
+    cursor: 'pointer',
+  }
 
 });

@@ -5,7 +5,7 @@ import RoomFilter from '../../components/roomFilter';
 import RoomRow from '../../components/roomRow';
 import TimeSlider from '../../components/timeSlider';
 
-import { loadData, addBooking } from './dataLoader';
+import { loadData, addBooking, deleteBooking } from './dataLoader';
 
 import useStyles from './style';
 
@@ -71,6 +71,10 @@ const HomeScene = () => {
     addBooking(data, date, timeRange, onComplete);
   }
 
+  const onDeleteBooking = id => {
+    deleteBooking(id, onComplete);
+  };
+
   const { config, roomTypes, roomCapacities } = allData;
 
   return (
@@ -94,6 +98,7 @@ const HomeScene = () => {
             config={config}
             data={data}
             onCreateBooking={onCreateBooking}
+            onDeleteBooking={onDeleteBooking}
             timeRange={timeRange}
           />
         ))}
