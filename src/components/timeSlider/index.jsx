@@ -1,18 +1,8 @@
 import { Paper, Slider, Tooltip } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getTimeText } from '../../utils/textUtils';
 
 import useStyles from './style';
-
-const valuetext = value => {
-  let hours = Math.floor(value / 60);
-  const meridian = hours < 12 ? 'AM' : 'PM';
-  if (meridian === 'PM') hours -= 12;
-
-  if (hours === 0) hours = 12;
-
-  const minutes = value % 60;
-  return `${hours}: ${minutes === 0 ? '00' : minutes} ${meridian}`;
-};
 
 const ValueLabelComponent = props => {
   const { children, open, value } = props;
@@ -24,9 +14,8 @@ const ValueLabelComponent = props => {
   );
 };
 
-const TimeSlider = ({ config }) => {
+const TimeSlider = ({ config, onChange }) => {
   const classes = useStyles();
-
 
   const [value, setValue] = useState(() => {
     const now = new Date();
@@ -48,8 +37,13 @@ const TimeSlider = ({ config }) => {
     return [startTime, endTime];
   });
 
+  useEffect(() => {
+    onChange(value);
+  }, []);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    onChange(newValue);
   };
 
   const min = config.start * 60;
@@ -69,8 +63,7 @@ const TimeSlider = ({ config }) => {
         onChange={handleChange}
         valueLabelDisplay="on"
         ValueLabelComponent={ValueLabelComponent}
-        valueLabelFormat={valuetext}
-        marks={true}
+        valueLabelFormat={getTimeText}
       />
     </Paper>
   )
