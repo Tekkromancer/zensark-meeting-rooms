@@ -3,12 +3,14 @@ import { getTimeText, getTimeMinutes } from '../../utils/textUtils';
 
 const baseURL = ' http://localhost:3002';
 
+const bookingsData = { endpoint: 'bookings', loaded: false, result: null };
+
 const queue = [
   { endpoint: 'config', loaded: false, result: null },
   { endpoint: 'roomCapacities', loaded: false, result: null },
   { endpoint: 'roomTypes', loaded: false, result: null },
   { endpoint: 'rooms', loaded: false, result: null },
-  { endpoint: 'bookings', loaded: false, result: null },
+  bookingsData,
 ];
 
 const data = {};
@@ -67,7 +69,6 @@ export const loadData = callback => {
       .then(response => onItemLoaded(item, response))
       .catch(error => onError(item, error));
   });
-
 }
 
 export const addBooking = (bookingData, date, timeslot, callback) => {
@@ -80,7 +81,16 @@ export const addBooking = (bookingData, date, timeslot, callback) => {
 
   axios.post(`${baseURL}/bookings`, payload)
     .then(response => {
-      data.bookings.push(response.data);
+      bookingsData.result.push(response.data);
+      callback(getReturnResult());
+    });
+};
+
+export const deleteBooking = (id, callback) => {
+  console.log('deleteBooking', id);
+  axios.delete(`${baseURL}/bookings/${id}`)
+    .then((response) => {
+      bookingsData.result = bookingsData.result.filter(item => item.id !== id);
       callback(getReturnResult());
     });
 };

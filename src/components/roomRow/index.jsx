@@ -8,6 +8,9 @@ import useStyles from './style';
 import { getTimeText } from '../../utils/textUtils';
 import { canBook } from '../../scenes/home/dataLoader';
 
+import DeleteIcon from '@material-ui/icons/Delete';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
 const getBlocks = ({ config, data: { bookings } }) => {
   const startMinutes = config.start * 60;
   const endMinutes = config.end * 60;
@@ -29,6 +32,7 @@ const getBlocks = ({ config, data: { bookings } }) => {
 
     // current block
     blocks.push({
+      id: booking.id,
       duration: booking.end - booking.start,
       startText: getTimeText(booking.start),
       endText: getTimeText(booking.end),
@@ -73,6 +77,7 @@ const RoomRow = ({
   data,
   config,
   onCreateBooking,
+  onDeleteBooking,
   timeRange,
 }) => {
   const classes = useStyles();
@@ -84,6 +89,10 @@ const RoomRow = ({
   const blocks = getBlocks({ config, data });
 
   const bookingAllowed = canBook({ data, timeRange });
+
+  const onDelete = id => () => {
+    onDeleteBooking(id);
+  }
 
   return (
     <Grid item xs={12}>
@@ -97,11 +106,20 @@ const RoomRow = ({
               style={{
                 backgroundColor: block.available ? 'green' : 'red',
                 width: getWidthPercent(block.duration),
-                // width: `${33}%`,
               }}
             >
-              <div>{block.startText}</div>
-              <div style={{ justifyContent: 'flex-end' }}>{block.endText}</div>
+              <div className={classes.blockLeft}>
+                <div>{block.startText}</div>
+              </div>
+              <div className={classes.blockRight}>
+                {!block.available ? (
+                  <HighlightOffIcon
+                    className={classes.deleteIcon}
+                    onClick={onDelete(block.id)}
+                  />
+                ) : <div />}
+                <div style={{ justifyContent: 'flex-end', alignItems: 'flex-end', textAlign: 'right' }}>{block.endText}</div>
+              </div>
             </div>
           ))}
         </div>
