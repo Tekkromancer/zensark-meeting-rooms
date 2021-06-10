@@ -86,8 +86,11 @@ export const addBooking = (bookingData, date, timeslot, callback) => {
 };
 
 export const canBook = ({ data: { name, bookings }, timeRange }) => {
+
   let bookingAllowed = true;
   const [ startTime, endTime ] = timeRange;
+
+  if (endTime - startTime < data.config.increment) return false;
 
   bookings.forEach(({ start: bookingStart, end: bookingEnd }) => {
     if (startTime >= bookingStart && startTime < bookingEnd) bookingAllowed = false;
