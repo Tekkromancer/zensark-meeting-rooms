@@ -6,7 +6,6 @@ export default makeStyles({
   root: {
     marginTop: 5,
     padding: rowPadding,
-    paddingTop: 50,
     display: 'flex',
   },
   headerColumn: {
@@ -14,7 +13,7 @@ export default makeStyles({
     minWidth: roomColumnWidth,
     fontWeight: 'bold',
   },
-  tooltip: {
-    zIndex: 0,
-  }  
+  field: {
+    minWidth: 150,
+  }
 });
