@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 import { rowPadding } from '../../scenes/home/style';
 
-const blockBorder = '1px solid black';
+// const blockBorder = '1px solid black';
 
 export default makeStyles({
   roomRow: {

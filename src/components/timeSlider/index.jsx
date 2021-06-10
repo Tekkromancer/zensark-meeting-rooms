@@ -1,4 +1,4 @@
-import { Paper, Slider, Tooltip } from '@material-ui/core';
+import { Grid, Paper, Slider, Tooltip } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { getTimeText } from '../../utils/textUtils';
 
@@ -7,8 +7,20 @@ import useStyles from './style';
 const ValueLabelComponent = props => {
   const { children, open, value } = props;
 
+  const classes = useStyles();
+
+  const tooltipClasses = {
+    popper: classes.tooltip,
+  };
+
   return (
-    <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
+    <Tooltip
+      open={open}
+      enterTouchDelay={0}
+      placement="top"
+      title={value}
+      classes={tooltipClasses}
+    >
       {children}
     </Tooltip>
   );
@@ -55,16 +67,20 @@ const TimeSlider = ({ config, onChange }) => {
       <div className={classes.headerColumn}>
         Time
       </div>
-      <Slider
-        value={value}
-        min={min}
-        max={max}
-        step={step}
-        onChange={handleChange}
-        valueLabelDisplay="on"
-        ValueLabelComponent={ValueLabelComponent}
-        valueLabelFormat={getTimeText}
-      />
+      <Grid container>
+        <Grid item xs={12}>
+          <Slider
+            value={value}
+            min={min}
+            max={max}
+            step={step}
+            onChange={handleChange}
+            valueLabelDisplay="on"
+            ValueLabelComponent={ValueLabelComponent}
+            valueLabelFormat={getTimeText}
+          />
+        </Grid>
+      </Grid>
     </Paper>
   )
 }
