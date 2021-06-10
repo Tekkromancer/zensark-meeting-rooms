@@ -5,16 +5,106 @@ import { Grid, Paper } from '@material-ui/core';
 import RoomColumn from '../roomColumn';
 
 import useStyles from './style';
+import { getTimeText } from '../../utils/textUtils';
+import { canBook } from '../../scenes/home/dataLoader';
+
+const getBlocks = ({ config, data: { bookings } }) => {
+  const startMinutes = config.start * 60;
+  const endMinutes = config.end * 60;
+
+  const blocks = [];
+
+  bookings.forEach((booking, i) => {
+    // Start Block
+    if (i === 0) {
+      if (booking.start > startMinutes) {
+        blocks.push({
+          duration: booking.start - startMinutes,
+          startText: getTimeText(startMinutes),
+          endText: getTimeText(booking.start),
+          available: true
+        });
+      }
+    }
+
+    // current block
+    blocks.push({
+      duration: booking.end - booking.start,
+      startText: getTimeText(booking.start),
+      endText: getTimeText(booking.end),
+      available: false
+    });
+
+    // if it's the last booking
+    if (i === bookings.length - 1) {
+      blocks.push({
+        duration: endMinutes - booking.end,
+        startText: getTimeText(booking.end),
+        endText: getTimeText(endMinutes),
+        available: true
+      });
+
+    } else {
+      const nextBooking = bookings[i + 1];
+      if (nextBooking.start > booking.end) {
+        blocks.push({
+          duration: nextBooking.start - booking.end,
+          startText: getTimeText(booking.end),
+          endText: getTimeText(nextBooking.start),
+          available: true
+        });
+      }
+    }
+  });
+
+  if (blocks.length === 0) {
+    blocks.push({
+      duration: endMinutes - startMinutes,
+      startText: getTimeText(startMinutes),
+      endText: getTimeText(endMinutes),
+      available: true
+    });
+  }
+
+  return blocks;
+};
 
 const RoomRow = ({
-  data
+  data,
+  config,
+  onCreateBooking,
+  timeRange,
 }) => {
   const classes = useStyles();
+
+  const totalTime = (config.end - config.start) * 60;
+
+  const getWidthPercent = duration => `${duration / totalTime * 100}%`;
+
+  const blocks = getBlocks({ config, data });
+
+  const bookingAllowed = canBook({ data, timeRange });
 
   return (
     <Grid item xs={12}>
       <Paper className={classes.roomRow}>
-        <RoomColumn data={data} />
+        <RoomColumn data={data} onCreateBooking={onCreateBooking} bookingAllowed={bookingAllowed} />
+        <div className={classes.timeline}>
+          {blocks.map((block, i) => (
+            <div
+              key={`${data.id}_b_${i}`}
+              className={classes.block}
+              style={{
+                backgroundColor: block.available ? 'green' : 'red',
+                width: getWidthPercent(block.duration),
+                // width: `${33}%`,
+              }}
+            >
+              <div>{block.startText}</div>
+              <div style={{ justifyContent: 'flex-end' }}>{block.endText}</div>
+            </div>
+          ))}
+        </div>
       </Paper>
     </Grid>
   );

@@ -5,6 +5,7 @@ import { roomColumnWidth } from '../../scenes/home/style';
 export default makeStyles({
   root: {
     width: roomColumnWidth,
+    minWidth: roomColumnWidth,
   },
   nameSection: {
     fontWeight: 'bold',
